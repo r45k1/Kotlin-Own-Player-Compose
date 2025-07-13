@@ -44,6 +44,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.foundation.layout.Row
 import android.content.Intent
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.ui.platform.LocalContext
 
 
@@ -173,6 +176,7 @@ fun MyScreen() {
         )
 
 
+
     }
     Row(
         horizontalArrangement = Arrangement.spacedBy(257.dp, Alignment.CenterHorizontally),
@@ -204,6 +208,25 @@ fun MyScreen() {
 
 
 }
+@Composable
+fun AudioSeekBar(
+    currentPosition: Float,     // np. 0f do 1f
+    onSeekChanged: (Float) -> Unit
+) {
+    Slider(
+        value = currentPosition,
+        onValueChange = { onSeekChanged(it) },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp),
+        colors = SliderDefaults.colors(
+            thumbColor = Color.White,
+            activeTrackColor = Color.Green,
+            inactiveTrackColor = Color.Gray
+        )
+    )
+}
+
 
 
 @Preview(showBackground = true)
@@ -211,6 +234,7 @@ fun MyScreen() {
 fun AudioScreen() {
     DecsTheme {
         MyScreen()
+        AudioSeekBar()
         MojPlayer()
     }
 }
