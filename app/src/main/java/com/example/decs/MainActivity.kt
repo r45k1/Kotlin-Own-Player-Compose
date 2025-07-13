@@ -37,13 +37,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.decs.ui.theme.RowdiesFontFamily
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.foundation.layout.Row
+import android.content.Intent
+import androidx.compose.ui.platform.LocalContext
 
 
 val OvalShape = GenericShape { size, _ ->
@@ -105,6 +106,9 @@ fun MyScreen() {
     val album_image = painterResource(id = R.drawable.vinyl)
     val titlesong = stringResource(id = R.string.title_song)
     val authorsong = stringResource(id = R.string.author_song)
+    val title_actual = stringResource(id = R.string.actual_song)
+    val context = LocalContext.current
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -122,6 +126,20 @@ fun MyScreen() {
         )
 
 
+    }
+    Box(
+        modifier = Modifier.fillMaxWidth()
+            .offset(y=130.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = title_actual,
+            color = Color.White,
+            fontSize = 20.sp,
+            fontFamily = RowdiesFontFamily,
+            fontWeight = FontWeight.Light,
+            style = MaterialTheme.typography.titleMedium
+        )
     }
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -175,7 +193,12 @@ fun MyScreen() {
         painter = painterResource(id = R.drawable.listicon),
         contentDescription = "list_podcast",
         modifier = Modifier.size(40.dp)
-            .clickable { }
+            .clickable {
+
+                val intent = Intent(context, ListSongActivity::class.java)
+                context.startActivity(intent)
+            }
+
     )
     }
 

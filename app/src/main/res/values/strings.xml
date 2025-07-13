@@ -2,4 +2,6 @@
     <string name="app_name">Decs</string>
     <string name="title_song">W dalekiej róży</string>
     <string name="author_song">Patryk Różański feat. Makumba</string>
+    <string name="actual_song">ODTWARZANE TERAZ</string>
+    <string name="actual_song_list">LISTA UTWORÓW</string>
 </resources>
