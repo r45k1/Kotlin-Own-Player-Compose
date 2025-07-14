@@ -65,13 +65,15 @@ fun ListSong() {
             painter = backgroundlist,
             contentDescription = null,
             contentScale = ContentScale.Fit,
-            modifier = Modifier.scale(1.4f)
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.95f)
         )
     }
 
     Box(
         modifier = Modifier.fillMaxWidth()
-            .offset(y = 130.dp),
+            .offset(y = 160.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -88,29 +90,29 @@ fun ListSong() {
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
-            .offset(x = -3.dp, y = 283.dp)
+            .offset(x = -3.dp, y = 300.dp)
     ) {
         Image(
             painter = album_actual,
             contentDescription = "Album photo",
             modifier = Modifier
                 .size(150.dp)
-                .clip(shape = RoundedCornerShape(75.dp)) // Zamieniono OvalShape na RoundedCornerShape
+                .clip(shape = RoundedCornerShape(75.dp))
         )
     }
 
     Row(
-        horizontalArrangement = Arrangement.spacedBy(240.dp, Alignment.CenterHorizontally),
+        horizontalArrangement = Arrangement.spacedBy(210.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .offset(y = 340.dp)
+            .offset(y = 355.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.audiolike),
             contentDescription = "likesong",
             modifier = Modifier.size(35.dp)
-                .offset(x = 2.dp)
+                .offset(x = 2.dp, y = 2.dp)
                 .clickable {  }
         )
         Image(
@@ -182,9 +184,9 @@ fun AudioList(messages: List<Audio>) {
         modifier = Modifier
 
             .fillMaxSize()
-            .padding(start = 20.dp, end = 20.dp)
+            .padding(start = 40.dp, end = 40.dp)
             .padding(top = 475.dp)
-            .padding(bottom = 105.dp)
+            .padding(bottom = 165.dp)
     ) {
         items(messages) { message ->
             AudioInfo(message)

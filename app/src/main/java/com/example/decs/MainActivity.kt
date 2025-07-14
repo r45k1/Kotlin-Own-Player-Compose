@@ -44,6 +44,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.foundation.layout.Row
 import android.content.Intent
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
@@ -75,16 +76,17 @@ fun MojPlayer() {
     var whenPlay by remember { mutableStateOf(false) }
 
     Row(
-        horizontalArrangement = Arrangement.spacedBy(50.dp, Alignment.CenterHorizontally),
+        horizontalArrangement = Arrangement.spacedBy(36.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .offset(x = 5.dp, y = 750.dp)
+            .offset(x = 5.dp, y = 720.dp)
 
     ) {
     Image(
         painterResource(id = R.drawable.audioback),
-        contentDescription = "audio_back"
+        contentDescription = "audio_back",
+        modifier = Modifier.clickable {  }
     )
     Image(
         painterResource(id = if (whenPlay) R.drawable.audiopause else R.drawable.audioplay),
@@ -98,6 +100,7 @@ fun MojPlayer() {
         painterResource(id = R.drawable.audionext),
         contentDescription = "audio_next",
         modifier = Modifier
+            .clickable {  }
     )
 }
 
@@ -117,28 +120,25 @@ fun MyScreen() {
             .fillMaxSize()
             .background(backgroundcolordark),
         contentAlignment = Alignment.Center
-
     ) {
         Image(
             painter = backgroundpodcast,
             contentDescription = null,
             contentScale = ContentScale.Fit,
             modifier = Modifier
-                .scale(1.4f)
-
+                .fillMaxWidth()
+                .fillMaxHeight(0.95f)
         )
-
-
     }
     Box(
         modifier = Modifier.fillMaxWidth()
-            .offset(y=130.dp),
+            .offset(y=170.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = title_actual,
             color = Color.White,
-            fontSize = 20.sp,
+            fontSize = 15.sp,
             fontFamily = RowdiesFontFamily,
             fontWeight = FontWeight.Light,
             style = MaterialTheme.typography.titleMedium
@@ -147,7 +147,7 @@ fun MyScreen() {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
-    ) { Spacer(modifier = Modifier.height(205.dp))
+    ) { Spacer(modifier = Modifier.height(225.dp))
         Image(
             painter = album_image,
             contentDescription = "Album photo",
@@ -179,24 +179,24 @@ fun MyScreen() {
 
     }
     Row(
-        horizontalArrangement = Arrangement.spacedBy(257.dp, Alignment.CenterHorizontally),
+        horizontalArrangement = Arrangement.spacedBy(220.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .offset(y = 125.dp)
+            .offset(y = 170.dp)
 
     ) {
     Image(
         painter = painterResource(id = R.drawable.backicon),
         contentDescription = "return",
-        modifier = Modifier.size(40.dp)
-            .offset(x = 10.dp)
+        modifier = Modifier.size(30.dp)
             .clickable {  }
     )
     Image(
         painter = painterResource(id = R.drawable.listicon),
         contentDescription = "list_podcast",
-        modifier = Modifier.size(40.dp)
+        modifier = Modifier.size(30.dp)
+            .offset(x = 8.dp)
             .clickable {
 
                 val intent = Intent(context, ListSongActivity::class.java)
