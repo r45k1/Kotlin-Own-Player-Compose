@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.clickable
 import android.content.Intent
+import androidx.compose.foundation.border
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -29,8 +30,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.ui.res.colorResource
 
 class ListSongActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +52,7 @@ class ListSongActivity : ComponentActivity() {
 
 @Composable
 fun ListSong() {
-    val backgroundlist = painterResource(id = R.drawable.back_list_podcast)
+    val backgroundclear = painterResource(id = R.drawable.background_player_clear)
     val backgroundcolorlistdark = Color(0xFF27292A)
     val context = LocalContext.current
     val title_actual_list = stringResource(id = R.string.actual_song_list)
@@ -62,12 +65,11 @@ fun ListSong() {
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = backgroundlist,
+            painter = backgroundclear,
             contentDescription = null,
-            contentScale = ContentScale.Fit,
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.95f)
+                .size(width = 450.dp, height = 800.dp)
+                .clip(RoundedCornerShape(16.dp))
         )
     }
 
@@ -90,7 +92,7 @@ fun ListSong() {
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
-            .offset(x = -3.dp, y = 300.dp)
+            .offset(y = 225.dp)
     ) {
         Image(
             painter = album_actual,
@@ -102,29 +104,48 @@ fun ListSong() {
     }
 
     Row(
-        horizontalArrangement = Arrangement.spacedBy(210.dp, Alignment.CenterHorizontally),
+        horizontalArrangement = Arrangement.spacedBy(180.dp),
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .offset(y = 355.dp)
+            .offset(y = 265.dp)
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.audiolike),
-            contentDescription = "likesong",
-            modifier = Modifier.size(35.dp)
-                .offset(x = 2.dp, y = 2.dp)
-                .clickable {  }
-        )
-        Image(
-            painter = painterResource(id = R.drawable.backicon),
-            contentDescription = "list_podcast",
-            modifier = Modifier.size(35.dp)
+        // Pierwszy przycisk
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .size(60.dp) // tło + border
+                .background(colorResource(id = R.color.buttoncolor), shape = CircleShape)
+                .border(3.dp, colorResource(id = R.color.buttonborder), shape = CircleShape)
+                .clickable { /* akcja */ }
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.audiolike),
+                contentDescription = "likesong",
+                modifier = Modifier.size(48.dp) // mniejsza ikona, odstęp od krawędzi
+            )
+        }
+
+        // Drugi przycisk
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .size(60.dp)
+                .background(colorResource(id = R.color.buttoncolor), shape = CircleShape)
+                .border(3.dp, colorResource(id = R.color.buttonborder), shape = CircleShape)
                 .clickable {
                     val intent = Intent(context, MainActivity::class.java)
                     context.startActivity(intent)
                 }
-        )
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.backicon),
+                contentDescription = "list_podcast",
+                modifier = Modifier.size(48.dp)
+            )
+        }
     }
+
 }
 
 data class Audio(
@@ -185,8 +206,8 @@ fun AudioList(messages: List<Audio>) {
 
             .fillMaxSize()
             .padding(start = 40.dp, end = 40.dp)
-            .padding(top = 475.dp)
-            .padding(bottom = 165.dp)
+            .padding(top = 380.dp)
+            .padding(bottom = 150.dp)
     ) {
         items(messages) { message ->
             AudioInfo(message)

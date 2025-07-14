@@ -44,11 +44,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.foundation.layout.Row
 import android.content.Intent
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 
 
 val OvalShape = GenericShape { size, _ ->
@@ -80,13 +87,20 @@ fun MojPlayer() {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .offset(x = 5.dp, y = 720.dp)
+            .offset(y = 680.dp)
+            .clip(CircleShape)
 
     ) {
+
     Image(
         painterResource(id = R.drawable.audioback),
         contentDescription = "audio_back",
-        modifier = Modifier.clickable {  }
+        modifier = Modifier
+            .background(colorResource(id = R.color.buttoncolor), shape = CircleShape)
+            .border(4.dp, colorResource(id = R.color.buttonborder), shape = CircleShape)
+            .clickable {  }
+            .size(64.dp)
+            .padding(10.dp)
     )
     Image(
         painterResource(id = if (whenPlay) R.drawable.audiopause else R.drawable.audioplay),
@@ -95,19 +109,29 @@ fun MojPlayer() {
             .clickable {
                 whenPlay = !whenPlay
             }
+            .background(colorResource(id = R.color.buttoncolor), shape = CircleShape)
+            .border(4.dp, colorResource(id = R.color.buttonborder), shape = CircleShape)
+            .clickable {  }
+            .size(80.dp)
+            .padding(5.dp)
     )
     Image(
         painterResource(id = R.drawable.audionext),
         contentDescription = "audio_next",
         modifier = Modifier
             .clickable {  }
+            .background(colorResource(id = R.color.buttoncolor), shape = CircleShape)
+            .border(4.dp, colorResource(id = R.color.buttonborder), shape = CircleShape)
+            .clickable {  }
+            .size(64.dp)
+            .padding(10.dp)
     )
 }
 
 }
 @Composable
 fun MyScreen() {
-    val backgroundpodcast = painterResource(id = R.drawable.back_player_podcast)
+    val backgroundclear = painterResource(id = R.drawable.background_player_clear)
     val backgroundcolordark = Color(0xFF27292A)
     val album_image = painterResource(id = R.drawable.vinyl)
     val titlesong = stringResource(id = R.string.title_song)
@@ -122,17 +146,16 @@ fun MyScreen() {
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = backgroundpodcast,
+            painter = backgroundclear,
             contentDescription = null,
-            contentScale = ContentScale.Fit,
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.95f)
+                .size(width = 450.dp, height = 800.dp)
+                .clip(RoundedCornerShape(16.dp))
         )
     }
     Box(
         modifier = Modifier.fillMaxWidth()
-            .offset(y=170.dp),
+            .offset(y=160.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -183,27 +206,44 @@ fun MyScreen() {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .offset(y = 170.dp)
+            .offset(y = 150.dp)
 
     ) {
-    Image(
-        painter = painterResource(id = R.drawable.backicon),
-        contentDescription = "return",
-        modifier = Modifier.size(30.dp)
-            .clickable {  }
-    )
-    Image(
-        painter = painterResource(id = R.drawable.listicon),
-        contentDescription = "list_podcast",
-        modifier = Modifier.size(30.dp)
-            .offset(x = 8.dp)
-            .clickable {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .size(50.dp)
+                .background(colorResource(id = R.color.buttoncolor), shape = CircleShape)
+                .border(3.dp, colorResource(id = R.color.buttonborder), shape = CircleShape)
+                .clip(CircleShape)
+                .clickable { }
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.backicon),
+                contentDescription = "list_podcast",
+                tint = Color.Unspecified,
+                modifier = Modifier.size(20.dp)
 
-                val intent = Intent(context, ListSongActivity::class.java)
-                context.startActivity(intent)
-            }
-
-    )
+            )
+        }
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .size(50.dp)
+                .background(colorResource(id = R.color.buttoncolor), shape = CircleShape)
+                .border(3.dp, colorResource(id = R.color.buttonborder), shape = CircleShape)
+                .clickable {
+                    val intent = Intent(context, ListSongActivity::class.java)
+                    context.startActivity(intent)
+                }
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.listicon),
+                contentDescription = "list_podcast",
+                tint = Color.Unspecified,
+                modifier = Modifier.size(20.dp)
+            )
+        }
     }
 
 
