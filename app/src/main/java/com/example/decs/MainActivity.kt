@@ -208,24 +208,7 @@ fun MyScreen() {
 
 
 }
-@Composable
-fun AudioSeekBar(
-    currentPosition: Float,     // np. 0f do 1f
-    onSeekChanged: (Float) -> Unit
-) {
-    Slider(
-        value = currentPosition,
-        onValueChange = { onSeekChanged(it) },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp),
-        colors = SliderDefaults.colors(
-            thumbColor = Color.White,
-            activeTrackColor = Color.Green,
-            inactiveTrackColor = Color.Gray
-        )
-    )
-}
+
 
 
 
@@ -234,7 +217,6 @@ fun AudioSeekBar(
 fun AudioScreen() {
     DecsTheme {
         MyScreen()
-        AudioSeekBar()
         MojPlayer()
     }
 }
